@@ -1,4 +1,4 @@
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import { View, Text, Image, TouchableOpacity, ScrollView } from "react-native";
 import React, { useEffect, useState } from "react";
 import { ScaledSheet } from "react-native-size-matters";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -153,7 +153,12 @@ useEffect(() => {
           </View>
         </View>
       </View>
-<View style={styles.itemWrapper}>
+
+
+
+
+      <ScrollView showsVerticalScrollIndicator={false}>
+      <View style={styles.itemWrapper}>
         <View style={{ width: "33.33%", padding: 10 }}>
           <TouchableOpacity style={styles.itemStyle} onPress={()=>router.push('add-balance')}>
             <FontAwesome6
@@ -363,7 +368,7 @@ useEffect(() => {
 
 
         <View style={{ width: "100%", padding: 10 }}>
-        <View style={[styles.itemStyle,{height:150}]}> 
+        <View style={[styles.itemStyle,{height:140}]}> 
         <Image
             style={{
               height: "100%",
@@ -466,6 +471,8 @@ useEffect(() => {
           </View>
         </View>
       </View> 
+      </ScrollView>
+
     </SafeAreaView>
   );
 }
@@ -522,7 +529,7 @@ const styles = ScaledSheet.create({
 
   itemStyle: {
     backgroundColor: "white",
-    height: 100,
+    height: 90,
     borderRadius: 10,
     elevation: 10,
     alignItems: "center",
