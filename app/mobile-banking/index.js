@@ -68,14 +68,14 @@ export default function MobileBanking() {
       setisLoading(true);
       try {
         const { data, error } = await supabase
-          .from("Transactions")
+          .from("history")
           .insert([
             {
-              name: userData.name,
+              
               orderBy: userData.phone,
               phone,
               amount,
-              mobile_banking_name: mobile_banking,
+             mobile_banking,
               payment_method,
               status: "pending",
               transaction: "mobile_banking",
@@ -85,9 +85,11 @@ export default function MobileBanking() {
           .select();
 
         if (error) {
+          console.log(error);
+          
           setisLoading(false);
           ToastAndroid.show(
-            "পিনটি সঠিক নয়।",
+            "সার্ভার সমস্যা। আবার চেষ্টা করুন",
             ToastAndroid.SHORT
           );
         setpin("")
@@ -97,16 +99,16 @@ export default function MobileBanking() {
         const newBalance = userData.balance - amount;
 
         const { data: d, error: updatebalanceError } = await supabase
-          .from("Users")
+          .from("users")
           .update({ balance: newBalance })
           .eq("phone", userData.phone)
           .select();
 
         if (updatebalanceError) {
           await supabase
-            .from("Transactions")
+            .from("history")
             .delete()
-            .eq("orderBy", userData.balance);
+            .eq("orderBy", userData.phone);
 
           setisLoading(false);
           ToastAndroid.show(
